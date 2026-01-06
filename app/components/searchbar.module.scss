@@ -1,0 +1,32 @@
+.container {
+    background-color: #000;
+    padding: 20px;
+
+    .input_con {
+        display: flex;
+        gap: 10px;
+        background-color: #222;
+
+        .input_box {
+            flex: 1;
+            background: none;
+            outline: 1px solid #222;
+            border: none;
+            transition: all .2s;
+            padding: 10px;
+            border-radius: 8px;
+
+            font: {
+                size: 16px;
+                weight: 500
+            }
+
+            color: #fff;
+
+            &:focus {
+                outline: 1px solid #9f9f9f;
+                transition: all .2s;
+            }
+        }
+    }
+}
