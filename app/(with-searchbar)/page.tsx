@@ -59,9 +59,6 @@ export default async function Home() {
 
   return (
     <div className={style.container}>
-      <h1>NextAuth 로그인 테스트</h1>
-      <LoginButton />
-
       <div className={style.navbar}>
         <Link href="/">Movies</Link>
         <Link href="/">Tv</Link>

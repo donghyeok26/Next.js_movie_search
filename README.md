@@ -50,3 +50,38 @@ signOut() → 세션 삭제
 
 마지막으로 github developer 설정이 안되있어서 애러가 발생.
 발급 후 .env.local 수정 -> github 로그인 작동
+
+2026.01.07
+
+기존의 github로그인에 google로그인 추가
+
+순서
+1. google OAuth 클라이언트 생성
+2. .env.local 클라이언트 ID, 클라이언트 시크릿 추가
+3. src/app/api/auth/[...nextauth]/route.ts에 providers에 google 추가
+4. loginButton.tsx에 google로그인 버튼 추가
+
+로그인 페이지 분리
+
+1. login directory 생성
+2. login page 생성
+3. 해당 이미지처럼 sns 로그인 버튼 생성
+![alt text](image-1.png)
+문제 발생 -> 로그인해도 페이지를 리다이랙트를 안함
+
+로그인 성공하면 main으로 리다이렉트 하는 방법
+
+1. 로그인 페이지에 useSession()을 사용해서 로그인 유무를 확인
+(useSession은 loading | authenticated | unauthenticated를 반환)
+2. useEffect를 사용해서 로그인 유무를 확인하고 로그인 유무에 따라 페이지를 리다이렉트
+
+![alt text](image-2.png)
+해당 에러발생
+발생이유 : useSession은 Provider 내부에서 사용되어야 함
+해결방법 : layout.tsx에 Provider를 추가 -> 이렇게 해둬야 모든 페이지에서 useSession 사용가능
+
+![alt text](image-3.png)
+로그인 페이지가 정상적으로 나옴
+
+![alt text](image-4.png)
+로그인 성공 후 google계정 정보를 가져옴

@@ -1,6 +1,8 @@
 import { ReactNode, Suspense } from "react";
 import Searchbar from "../components/searchbar";
 import Providers from '../../app/providers';
+import LoginButton from "../components/LoginButton";
+import style from "./layout.module.scss";
 
 export default function Layout({
     children,
@@ -9,11 +11,16 @@ export default function Layout({
 }) {
     return (
         <div>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Searchbar />
-            </Suspense>
             <Providers>
-                {children}
+                <div className={style.container}>
+                    <div className={style.login}>
+                        <LoginButton />
+                    </div>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Searchbar />
+                    </Suspense>
+                    {children}
+                </div>
             </Providers>
         </div>
     );
