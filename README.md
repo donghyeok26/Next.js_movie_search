@@ -67,6 +67,7 @@ signOut() → 세션 삭제
 2. login page 생성
 3. 해당 이미지처럼 sns 로그인 버튼 생성
 ![alt text](image-1.png)
+
 문제 발생 -> 로그인해도 페이지를 리다이랙트를 안함
 
 로그인 성공하면 main으로 리다이렉트 하는 방법
@@ -76,12 +77,44 @@ signOut() → 세션 삭제
 2. useEffect를 사용해서 로그인 유무를 확인하고 로그인 유무에 따라 페이지를 리다이렉트
 
 ![alt text](image-2.png)
+
 해당 에러발생
 발생이유 : useSession은 Provider 내부에서 사용되어야 함
 해결방법 : layout.tsx에 Provider를 추가 -> 이렇게 해둬야 모든 페이지에서 useSession 사용가능
 
 ![alt text](image-3.png)
+
 로그인 페이지가 정상적으로 나옴
 
 ![alt text](image-4.png)
+
 로그인 성공 후 google계정 정보를 가져옴
+
+prisma 연동
+
+순서
+
+1. prisma 설치
+1) npm install prisma @prisma/client
+2) npx prisma init
+3) prisma 폴더 자동 생성
+4) .env DATABASE_URL 자동 추가
+
+2. DATABASE_URL="file:./dev.db"
+- SQLite 데이터베이스 사용
+- 나중에 MySQL / PostgreSQL로 변경
+
+3. prisma schema 작성 ★ 모르겠음// 추가공부
+
+4. DB테이블 생성
+npx prisma migrate dev --name init
+
+5. prisma Client 싱글톤 설정 (중요)
+에러발생
+prisma v5에서 datasource db {
+  url = env("DATABASE_URL")
+} 허용하지않음
+
+-> v4로 변경 PrismaClient 에러제거
+
+6. NextAuth에 prisma adapter 연결
